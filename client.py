@@ -58,7 +58,6 @@ for grade in client.current_period.grades:
 with open(f'{client.current_period.name}_notes.json', 'w', encoding='utf-8') as f:
     json.dump(all_grades, f, ensure_ascii=False, indent=4, default=str)
 
-filename=
 with open(f"{client.current_period.name}_notes_{datetime.today().strftime('%Y-%m-%d')}.json", 'w', encoding='utf-8') as f:
     json.dump(all_grades, f, ensure_ascii=False, indent=4, default=str)
 
