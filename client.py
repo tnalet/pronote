@@ -51,7 +51,7 @@ new_note=[]
 # print only the grades from the current period
 for grade in client.current_period.grades:
     all_grades.append(grade.to_dict())
-    exist=next((item for item in loaded_grades if item["grade"] == str(grade.grade) and item["date"] == str(grade.date) and item["subject"]["name"]==grade.subject.name), None)
+    exist=next((item for item in loaded_grades if item["grade"] == str(grade.grade) and item["date"] == str(grade.date) and item["subject"]["name"]==grade.subject.name and item["comment"]==grade.comment), None)
     if exist is None:
         new_note.append(f'{grade.period.name} {grade.date} {grade.subject.name} {grade.grade} / {grade.out_of}')
 
