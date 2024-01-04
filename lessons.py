@@ -36,7 +36,7 @@ except Exception as e:
     loaded_lessons=[]
 
 fr = datetime.today()
-to = datetime.today() + timedelta(days=10)
+to = datetime.today() + timedelta(days=7)
 
 lesson_changed=[]
 
@@ -44,10 +44,16 @@ for lesson in client.lessons(fr,to):
     exist=next((item for item in loaded_lessons if item["subject"]["name"] == lesson.subject.name and item["start"] == str(lesson.start) and item["end"]==str(lesson.end)), None)
     if exist is None:         
     	loaded_lessons.append(lesson.to_dict())
+    	if(lesson.canceled):
+    		lesson_changed.append(f'Cours annulé {lesson.subject.name} {lesson.start}')
     else:
     	if(exist["canceled"]!=lesson.canceled):
-    		lesson_changed.append(f'Cours modifié {lesson.subject.name} {lesson.start}')
-            exist["canceled"]=lesson.canceled
+    		if(lesson.canceled):
+    			lesson_changed.append(f'Cours annulé {lesson.subject.name} {lesson.start}')
+    		else:
+    			lesson_changed.append(f'Cours maintenu {lesson.subject.name} {lesson.start}')
+    			
+    		exist["canceled"]=lesson.canceled
     		
 for lesson_change in lesson_changed:
     print(lesson_change)
