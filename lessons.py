@@ -1,6 +1,6 @@
 import pronotepy
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 # creating the client from qrcode_login
