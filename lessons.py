@@ -36,4 +36,4 @@ for lesson in client.lessons(fr,to):
     lessons.append(lesson.to_dict())
     print(f'{lesson.subject.name} {lesson.start} {lesson.end}')
 with open('lessons.json', 'w', encoding='utf-8') as f:
-    json.dump(lessons, f, ensure_ascii=False, indent=4)
+    json.dump(lessons, f, ensure_ascii=False, indent=4, default=str)
