@@ -31,6 +31,9 @@ with open('credentials.json', 'w', encoding='utf-8') as f:
 
 fr = datetime.today()
 to = datetime.today() + timedelta(days=10)
-
+lessons=[]
 for lesson in client.lessons(fr,to):
+    lessons.append(lesson.to_dict()
     print(f'{lesson.subject.name} {lesson.start} {lesson.end}')
+with open('lessons.json', 'w', encoding='utf-8') as f:
+    json.dump(lessons, f, ensure_ascii=False, indent=4)
