@@ -29,37 +29,8 @@ credentials = {
 with open('credentials.json', 'w', encoding='utf-8') as f:
     json.dump(credentials, f, ensure_ascii=False, indent=4)
 
-for period in client.periods:
-    # Iterate over all the periods the user has. This includes semesters and trimesters.
+fr = datetime.today()
+to = datetime.today() + timedelta(days=10)
 
-    for grade in period.grades:         # the grades property returns a list of pronotepy.Grade
-        dic=grade.to_dict()
-        #print(f'{grade.id} {grade.period.name} {grade.date} {grade.subject.name} {grade.grade}') # This prints the actual grade. Could be a number or for example "Absent" (always a string)
-
-try:
-    with open(f'{client.current_period.name}_notes.json', 'r', encoding='utf-8') as f:
-        loaded_grades=json.load(f)
-except Exception as e:
-    loaded_grades=[]
-
-# for g in loaded_grades:
-#     print(f'{g["subject"]["name"]}')
-#     print(f'{float(g["grade"])}')
-
-all_grades=[]
-new_note=[]
-# print only the grades from the current period
-for grade in client.current_period.grades:
-    all_grades.append(grade.to_dict())
-    exist=next((item for item in loaded_grades if item["grade"] == str(grade.grade) and item["date"] == str(grade.date) and item["subject"]["name"]==grade.subject.name and item["comment"]==grade.comment), None)
-    if exist is None:
-        new_note.append(f'{grade.period.name} {grade.date} {grade.subject.name} {grade.grade} / {grade.out_of}')
-
-with open(f'{client.current_period.name}_notes.json', 'w', encoding='utf-8') as f:
-    json.dump(all_grades, f, ensure_ascii=False, indent=4, default=str)
-
-# with open(f"{client.current_period.name}_notes_{datetime.today().strftime('%Y-%m-%d')}.json", 'w', encoding='utf-8') as f:
-#     json.dump(all_grades, f, ensure_ascii=False, indent=4, default=str)
-
-for note in new_note:
-    print(f'{note}')
+for lesson in client.lessons(fr,to):
+    print(f'{lesson.subject}')
