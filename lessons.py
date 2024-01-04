@@ -46,8 +46,8 @@ for lesson in client.lessons(fr,to):
     	if(exist.canceled!=lesson.canceled):
     		lesson_changed.append(f'Cours modifié {lesson.subject.name} {lesson.start}')
     		
- for lesson_change in lesson_changed:
- 	print(lesson_change)
+for lesson_change in lesson_changed:
+    print(lesson_change)
 
 
 with open('lessons.json', 'w', encoding='utf-8') as f:
