@@ -33,4 +33,4 @@ fr = datetime.today()
 to = datetime.today() + timedelta(days=10)
 
 for lesson in client.lessons(fr,to):
-    print(f'{lesson.subject.Name} {lesson.start} {lesson.end}')
+    print(f'{lesson.subject.name} {lesson.start} {lesson.end}')
