@@ -29,9 +29,11 @@ credentials = {
 with open('credentials.json', 'w', encoding='utf-8') as f:
     json.dump(credentials, f, ensure_ascii=False, indent=4)
 
-
-with open('lessons.json', 'r', encoding='utf-8') as f:
-    loaded_lessons=json.load(f)
+try:
+    with open('lessons.json', 'r', encoding='utf-8') as f:
+        loaded_lessons=json.load(f)
+except Exception as e:
+    loaded_lessons=[]
 
 fr = datetime.today()
 to = datetime.today() + timedelta(days=10)
