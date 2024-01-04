@@ -51,4 +51,4 @@ for lesson_change in lesson_changed:
 
 
 with open('lessons.json', 'w', encoding='utf-8') as f:
-    json.dump(lessons, f, ensure_ascii=False, indent=4, default=str)
+    json.dump(loaded_lessons, f, ensure_ascii=False, indent=4, default=str)
