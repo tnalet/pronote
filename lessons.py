@@ -29,11 +29,26 @@ credentials = {
 with open('credentials.json', 'w', encoding='utf-8') as f:
     json.dump(credentials, f, ensure_ascii=False, indent=4)
 
+
+with open('lessons.json', 'r', encoding='utf-8') as f:
+    loaded_lessons=json.load(f)
+
 fr = datetime.today()
 to = datetime.today() + timedelta(days=10)
-lessons=[]
+
+lesson_changed=[]
+
 for lesson in client.lessons(fr,to):
-    lessons.append(lesson.to_dict())
-    print(f'{lesson.subject.name} {lesson.start} {lesson.end}')
+    exist=next((item for item in loaded_lessons if item["subject"]["name"] == lesson.subject.name and item["start"] == str(lesson.start) and item["end"]==str(lesson.end)), None)
+    if exist is None:         
+    	loaded_lessons.append(lesson.to_dict())
+    else:
+    	if(exist.canceled!=lesson.canceled):
+    		lesson_changed.append(f'Cours modifié {lesson.subject.name} {lesson.start}')
+    		
+ for lesson_change in lesson_changed:
+ 	print(lesson_change)
+
+
 with open('lessons.json', 'w', encoding='utf-8') as f:
     json.dump(lessons, f, ensure_ascii=False, indent=4, default=str)
