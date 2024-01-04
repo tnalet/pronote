@@ -43,7 +43,7 @@ for lesson in client.lessons(fr,to):
     if exist is None:         
     	loaded_lessons.append(lesson.to_dict())
     else:
-    	if(exist.canceled!=lesson.canceled):
+    	if(exist["canceled"]!=lesson.canceled):
     		lesson_changed.append(f'Cours modifié {lesson.subject.name} {lesson.start}')
     		
 for lesson_change in lesson_changed:
