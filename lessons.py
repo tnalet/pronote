@@ -34,11 +34,25 @@ try:
         loaded_lessons=json.load(f)
 except Exception as e:
     loaded_lessons=[]
+ 
+to_be_removed=[]
+for loaded_lesson in loaded_lessons:
+	#print(loaded_lesson["start"])
+	if(datetime.strptime(loaded_lesson["start"], '%Y-%m-%d %H:%M:%S') < datetime.today()):
+		#print(len(loaded_lessons))
+		to_be_removed.append(loaded_lesson)
+		#print(len(loaded_lessons))
+		#print(loaded_lesson["start"])
+		#print(f'here?{loaded_lesson["start"]}')
 
-fr = datetime.today()
+for to_remove in to_be_removed:
+	print(f'Removing {to_remove["start"]}')
+	loaded_lessons.remove(to_remove)
+fr = datetime.today() - timedelta(days=0)
 to = datetime.today() + timedelta(days=7)
 
 lesson_changed=[]
+
 
 for lesson in client.lessons(fr,to):
     exist=next((item for item in loaded_lessons if item["subject"]["name"] == lesson.subject.name and item["start"] == str(lesson.start) and item["end"]==str(lesson.end)), None)
